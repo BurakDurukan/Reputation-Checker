@@ -35,6 +35,8 @@ def otx(ip):
 	}
 	response = requests.get('https://otx.alienvault.com/api/v1/indicators/IPv4/'+ip+'/general',headers=headers, verify=False).json()
 	pulsecount = response["pulse_info"]["count"] #Reputation is not healthy at OTX. Therefore I check pulse info.
+	#print (pulsecount)
+	#print (response)
 	verdict = ""
 	if pulsecount >= 2:
 		verdict = "malicious"
@@ -53,7 +55,7 @@ def __main__():
 	ip1 = re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}', o)
 	verdict = ''
 	removedup = [*set(ip1)]
-	removedup.remove('0.0.0.0')
+	#removedup.remove('0.0.0.0')
 
 	for i in removedup: 
 		print ("Checking IP:"+i)
